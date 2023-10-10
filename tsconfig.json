@@ -4,9 +4,13 @@
         "module": "CommonJS",
         "rootDir": "src",
         "outDir": "./dist",
+        "baseUrl": "src",
         "moduleResolution": "Node",
         "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "paths": {
+            "@/*": ["*"]
+        }
     }
 }
