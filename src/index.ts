@@ -1,3 +1,11 @@
-const message = 'hello, dev!!!'
+class Person {
+    sayMyName() {
+        return 'Filipe'
+    }
+}
 
-console.log(message)
+export default Person
+
+// const message = 'hello, dev!!!'
+
+// console.log(message)
