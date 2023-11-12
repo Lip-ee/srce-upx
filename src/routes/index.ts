@@ -7,8 +7,8 @@ const router = Router()
 
 /*
 
-querido guts, pai não sabia onde encaixar as requisições
-então acabei fazendo aqui mesmo.
+querido guts, pai não sabia onde encaixar as rotas
+então acabei deixando aqui mesmo.
 
 se tiver um local específico, fique a vontade para me
 ensinar, ou apenas mudar e me avisar depois :)
