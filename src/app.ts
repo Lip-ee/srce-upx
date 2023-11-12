@@ -1,4 +1,5 @@
 import express, { json, Request, Response, urlencoded } from 'express'
+import * as mongoose from 'mongoose'
 import cors from 'cors'
 import routes from './routes'
 import 'dotenv/config'
@@ -8,6 +9,23 @@ const app = express()
 app.use(cors({ origin: '*' }))
 app.use(json({ limit: '50mb' }))
 app.use(urlencoded({ limit: '50mb', extended: true }))
+app.use(express.json())
+
+// DATABASE CONFIGS
+mongoose.connect(`mongodb+srv://lipope:${process.env.MONGODB_PASSWORD}@srce-db.9vjnuey.mongodb.net/?retryWrites=true&w=majority`)
+
+const contaSchema = new mongoose.Schema({
+	contaID: { type: String }, // obs: pra não dar erro, botei tudo como string
+	dataPag: { type: String },
+	nomeTitular: { type: String },
+	valorPag: { type: String },
+	infoPag: { type: String },
+	numeroMedidor: { type: String },
+	locLatitude: { type: String },
+	locLongitude: { type: String },
+})
+
+const Conta = mongoose.model('Conta', contaSchema)
 
 /*
 
@@ -17,11 +35,12 @@ então acabei fazendo aqui mesmo.
 se tiver um local específico, fique a vontade para me
 ensinar, ou apenas mudar e me avisar depois :)
 
-API - SRCE:
+API - SRCE
 
 */
 
-app.get('/', (req: Request, res: Response) => {
+// GET - PING PONG (just testing)
+app.get('/ping', (req: Request, res: Response) => {
 	res.status(200).json({
 		name: 'UPX API',
 		version: process.env.npm_package_version,
@@ -31,7 +50,22 @@ app.get('/', (req: Request, res: Response) => {
 	
 })
 
-// outros métodos abaixo...
+// POST - NOVA CONTA
+app.post('/nova_conta/', async (req: Request, res: Response) => {
+	const conta = new Conta({
+		contaID: req.body.contaID,
+		data: req.body.dataPag,
+		nomeTitular: req.body.nomeTitular,
+		valorPag: req.body.valorPag,
+		infoPag: req.body.infoPag,
+		numeroMedidor: req.body.numeroMedidor,
+		locLatitude: req.body.locLatitude,
+		locLongitude: req.body.locLongitude,
+	})
+
+	await conta.save()
+	res.send(conta)
+})
 
 app.use('/', routes)
 
