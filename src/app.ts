@@ -56,6 +56,12 @@ app.get('/listar_contas', async (req: Request, res: Response) => {
 	return res.status(200).json(contas)
 })
 
+// GET - LISTA CONTA POR ID
+app.get('/listar_conta/:id', async (req: Request, res: Response) => {
+	const conta = await Conta.findById(req.params.id)
+	return res.status(200).json(conta)
+})
+
 // POST - NOVA CONTA
 app.post('/nova_conta/', async (req: Request, res: Response) => {
 	const conta = new Conta({
