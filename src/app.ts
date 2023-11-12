@@ -73,6 +73,22 @@ app.post('/nova_conta/', async (req: Request, res: Response) => {
 	return res.send(conta)
 })
 
+// PUT - ATUALIZAR CONTA
+app.put('/atualizar_conta/:id', async (req: Request, res: Response) => {
+	const conta = await Conta.findByIdAndUpdate(req.params.id, {
+		contaID: req.body.contaID,
+		dataPag: req.body.dataPag,
+		nomeTitular: req.body.nomeTitular,
+		valorPag: req.body.valorPag,
+		infoPag: req.body.infoPag,
+		numeroMedidor: req.body.numeroMedidor,
+		locLatitude: req.body.locLatitude,
+		locLongitude: req.body.locLongitude,
+	})
+
+	return res.send(conta)
+})
+
 // DELETE - APAGAR CONTA
 app.delete('/apagar_conta/:id', async (req: Request, res: Response) => {
 	const conta = await Conta.findByIdAndDelete(req.params.id)
