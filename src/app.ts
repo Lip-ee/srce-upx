@@ -50,6 +50,12 @@ app.get('/ping', (req: Request, res: Response) => {
 	
 })
 
+// GET - LISTAR CONTAS
+app.get('/listar_contas', async (req: Request, res: Response) => {
+	const contas = await Conta.find()
+	res.status(200).json(contas)
+})
+
 // POST - NOVA CONTA
 app.post('/nova_conta/', async (req: Request, res: Response) => {
 	const conta = new Conta({

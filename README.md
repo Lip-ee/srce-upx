@@ -21,6 +21,7 @@ ou
 PORT=8000
 DATABASE_URL="mysql://root:1234@localhost:3306/srce"
 SECRET=srce_upx
+MONGODB_PASSWORD=vai ter que pedir pro pai no zap :sunglasses:
 ```
     
 ## Deploy
