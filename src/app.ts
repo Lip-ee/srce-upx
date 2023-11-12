@@ -41,7 +41,7 @@ API - SRCE
 
 // GET - PING PONG (just testing)
 app.get('/ping', (req: Request, res: Response) => {
-	res.status(200).json({
+	return res.status(200).json({
 		name: 'UPX API',
 		version: process.env.npm_package_version,
 		env: process.env.ENVIRONMENT,
@@ -53,14 +53,14 @@ app.get('/ping', (req: Request, res: Response) => {
 // GET - LISTAR CONTAS
 app.get('/listar_contas', async (req: Request, res: Response) => {
 	const contas = await Conta.find()
-	res.status(200).json(contas)
+	return res.status(200).json(contas)
 })
 
 // POST - NOVA CONTA
 app.post('/nova_conta/', async (req: Request, res: Response) => {
 	const conta = new Conta({
 		contaID: req.body.contaID,
-		data: req.body.dataPag,
+		dataPag: req.body.dataPag,
 		nomeTitular: req.body.nomeTitular,
 		valorPag: req.body.valorPag,
 		infoPag: req.body.infoPag,
@@ -70,7 +70,13 @@ app.post('/nova_conta/', async (req: Request, res: Response) => {
 	})
 
 	await conta.save()
-	res.send(conta)
+	return res.send(conta)
+})
+
+// DELETE - APAGAR CONTA
+app.delete('/apagar_conta/:id', async (req: Request, res: Response) => {
+	const conta = await Conta.findByIdAndDelete(req.params.id)
+	return res.send(conta)
 })
 
 app.use('/', routes)
